@@ -22,9 +22,6 @@ class Database:
             port=5432,
         )
         self.conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)  # <-- ADD THIS LINE
-        cur = self.conn.cursor()
-        cur.execute("SELECT * FROM users;")
-        print(cur.fetchall())
         '''cur.execute("SELECT * FROM pg_catalog.pg_tables;")
         print(cur.fetchall())
         cur = self.conn.cursor()
@@ -206,6 +203,16 @@ class Database:
         except Exception as e:
             print(e)
             return False
+
+    def get_global_rating(self):
+        try:
+            cur = self.conn.cursor()
+            cur.execute("""SELECT user_name, rating FROM users""")    
+            res = cur.fetchall()
+            return res
+        except Exception as e:
+            print(e)
+            return None
 
 
 db = Database()

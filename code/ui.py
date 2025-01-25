@@ -15,7 +15,7 @@ def main_menu():
     """
 
     selected = 0  # индекс выбранной кнопки
-
+    leaderboard = Leaderboard()
     opts = [
         "Новая игра (Локальная)",
         "Выбрать сервер",
@@ -24,6 +24,7 @@ def main_menu():
         "Выход",
     ]
 
+    flag_leaderboard = False
     input_active = False  # флаг активного ввода никнейма
     # прямоугольник ввода
     input_rect = pygame.Rect(130, 70, 300, 50)
@@ -95,7 +96,8 @@ def main_menu():
                 user_data_surface = font.render(line, True, v.WHITE)
                 v.screen.blit(user_data_surface, (130, offset_y))
                 offset_y += 40
-
+        if flag_leaderboard is True:
+            leaderboard.draw(v.screen, (50, 50))
         pygame.display.flip()
         v.CLOCK.tick(v.FPS)
 
@@ -137,6 +139,8 @@ def main_menu():
                     v.nickname = v.nickname[:-1]
                 else:
                     v.nickname += event.unicode
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_TAB:
+                flag_leaderboard = True
 
             # Выбор кнопок
 
@@ -197,7 +201,10 @@ def main_menu():
                     elif pick == "Выход":
                         pygame.quit()
                         sys.exit()
-
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_TAB:
+                flag_leaderboard = True
+            else: 
+                flag_leaderboard = False
 
 # --- ПАУЗА ---
 def pause_menu():
@@ -535,3 +542,26 @@ class Chat:
                     v.font.size(v.current_input)[0] < v.CHAT_WIDTH - 40
                 ):  # Ограничение длины строки
                     v.current_input += event.unicode
+
+class Leaderboard(pygame.sprite.Sprite):
+    def init(self):
+        super().__init__()
+        self.image = pygame.Surface((600, 400), pygame.SRCALPHA, 32)
+        self.rect = self.image.get_rect()
+    def draw(self, screen, pos):
+        pygame.draw.rect(self.image, (255, 255, 255), (0, 0, 600, 400))
+        font = pygame.font.SysFont(None, 16)
+        leaderboard_surface = font.render("LEADERBOARD", False, (0, 0, 0))
+        self.image.blit(leaderboard_surface, (250, 42))
+        users = sorted(v.db.db.get_global_rating(), key=lambda x:x[1])
+        x, y = 52, 52
+        i = 1
+        
+        for username, rating in users:
+            text = f"{i} {username} {rating}"
+            user_surface = font.render(text, False, (0, 0, 0))
+            self.image.blit(user_surface, (x, y))
+            y += 18
+            if y >= 400:
+                break
+        screen.blit(self.image, pos)
