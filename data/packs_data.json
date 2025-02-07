@@ -1,0 +1,72 @@
+[
+    {
+        "type": "sounds",
+        "name": "default"
+    },
+    {
+        "type": "balls patterns",
+        "name": "default"
+    },
+    {
+        "type": "loading screen",
+        "name": "default"
+    },
+    {
+        "type": "table pattern",
+        "name": "default"
+    },
+    {
+        "type": "sounds",
+        "name": "Brawl",
+        "cost": 15,
+        "color": [0, 153, 0]
+    },
+    {
+        "type": "balls patterns",
+        "name": "rgb",
+        "cost": 15,
+        "color": [0, 153, 0]
+    },
+    {
+        "type": "table pattern",
+        "name": "palace",
+        "cost": 30,
+        "color": [153, 0, 153]
+    },
+    {
+        "type": "loading screen",
+        "name": "alpha",
+        "cost": 30,
+        "color": [153, 0, 153]
+    },
+    {
+        "type": "balls patterns",
+        "name": "total black",
+        "cost": 50,
+        "color": [255, 51, 153]
+    },
+    {
+        "type": "table pattern",
+        "name": "red gradient",
+        "cost": 50,
+        "color": [255, 51, 153]
+    },
+    {
+        "type": "sounds",
+        "name": "cs2",
+        "cost": 60,
+        "color": [255, 51, 153]
+    },
+    {
+        "type": "table pattern",
+        "name": "modern",
+        "cost": 100,
+        "color": [255, 51, 0]
+    },
+    {
+        "type": "sounds",
+        "name": "Minecraft",
+        "cost": 100,
+        "color": [255, 51, 0]
+    }
+]
