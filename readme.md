@@ -16,8 +16,8 @@
 ## 🏗️ Архитектура проекта
 
 ### Диаграмма архитектуры
-![Context](/docs/1.png)
-![Containers](/docs/2.png)
+![Context](/docs/1.drawio.png)
+![Containers](/docs/2.drawio.png)
 ![Components](/docs/Untitled%20Diagram-Components.drawio.png)
 
 ---
