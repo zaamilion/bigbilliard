@@ -1281,81 +1281,86 @@ class Leaderboard:
         self.rect = self.image.get_rect()
 
     def draw(self, screen, pos):
-        pygame.draw.rect(
-            self.image, (65, 65, 65, 250), (0, 0, 700, 500), border_radius=30
-        )
-        pygame.draw.rect(
-            self.image, (30, 30, 30, 250), (0, 0, 700, 500), 10, border_radius=30
-        )
-        font = pygame.font.Font(v.FONT_PATH, 40)
-        leaderboard_surface = font.render("LEADERBOARD", False, (255, 255, 255))
-        self.image.blit(leaderboard_surface, (200, 42))
-        users = sorted(v.db.db.get_global_rating(), key=lambda x: x[1])
-        x_top_static = 52
-        x_name_static = 152
-        x_rating_static = 452
-        y = 100
-        i = 1
-        font = pygame.font.Font(v.FONT_PATH, 25)
-        user_colors = {1: (255, 220, 30), 2: (227, 227, 227), 3: (160, 50, 0)}
+        try:
+            pygame.draw.rect(
+                self.image, (65, 65, 65, 250), (0, 0, 700, 500), border_radius=30
+            )
+            pygame.draw.rect(
+                self.image, (30, 30, 30, 250), (0, 0, 700, 500), 10, border_radius=30
+            )
+            font = pygame.font.Font(v.FONT_PATH, 40)
+            leaderboard_surface = font.render("LEADERBOARD", False, (255, 255, 255))
+            self.image.blit(leaderboard_surface, (200, 42))
+            users = sorted(v.db.db.get_global_rating(), key=lambda x: x[1])
+            x_top_static = 52
+            x_name_static = 152
+            x_rating_static = 452
+            y = 100
+            i = 1
+            font = pygame.font.Font(v.FONT_PATH, 25)
+            user_colors = {1: (255, 220, 30), 2: (227, 227, 227), 3: (160, 50, 0)}
 
-        top_surface = font.render("TOP", False, (100, 100, 100))
-        nickname_surface = font.render("NICKNAME", False, (100, 100, 100))
-        rating_surface = font.render("RATING", False, (100, 100, 100))
+            top_surface = font.render("TOP", False, (100, 100, 100))
+            nickname_surface = font.render("NICKNAME", False, (100, 100, 100))
+            rating_surface = font.render("RATING", False, (100, 100, 100))
 
-        self.image.blit(top_surface, (x_top_static, y))
-        self.image.blit(nickname_surface, (x_name_static, y))
-        self.image.blit(rating_surface, (x_rating_static, y))
-
-        y += 50
-        font = pygame.font.Font(v.FONT_PATH2, 20)
-        if v.AUTHED:
-            for j, data in enumerate(users):
-                if data[0] == v.username:
-                    client_top = j
-
-        for username, rating in users:
-
-            if len(username) > 20:
-                username = username[:17] + "..."
-
-            if v.AUTHED:
-                if i == client_top + 1:
-                    pygame.draw.rect(
-                        self.image, (170, 170, 170), (10, y + 3, 680, 20), 1
-                    )
-
-            user_color = user_colors.get(i, (160, 160, 160))
-            top_surface = font.render(str(i), False, user_color)
-            nickname_surface = font.render(str(username), False, user_color)
-            rating_surface = font.render(str(rating), False, user_color)
             self.image.blit(top_surface, (x_top_static, y))
             self.image.blit(nickname_surface, (x_name_static, y))
             self.image.blit(rating_surface, (x_rating_static, y))
-            y += 20
-            i += 1
-            if y >= 400:
-                if v.AUTHED:
-                    if i < client_top + 1:
-                        if i != client_top + 2:
-                            y += 10
-                        pygame.draw.rect(
-                            self.image, (170, 170, 170), (10, y, 680, 20), 1
-                        )
-                        username = (
-                            v.username
-                            if len(v.username) <= 20
-                            else v.username[:17] + "..."
-                        )
-                        user_color = (160, 160, 160)
-                        top_surface = font.render(
-                            str(client_top + 1), False, user_color
-                        )
-                        nickname_surface = font.render(str(username), False, user_color)
-                        rating_surface = font.render(str(rating), False, user_color)
-                        self.image.blit(top_surface, (x_top_static, y))
-                        self.image.blit(nickname_surface, (x_name_static, y))
-                        self.image.blit(rating_surface, (x_rating_static, y))
 
-                break
-        screen.blit(self.image, pos)
+            y += 50
+            font = pygame.font.Font(v.FONT_PATH2, 20)
+            if v.AUTHED:
+                for j, data in enumerate(users):
+                    if data[0] == v.username:
+                        client_top = j
+
+            for username, rating in users:
+
+                if len(username) > 20:
+                    username = username[:17] + "..."
+
+                if v.AUTHED:
+                    if i == client_top + 1:
+                        pygame.draw.rect(
+                            self.image, (170, 170, 170), (10, y + 3, 680, 20), 1
+                        )
+
+                user_color = user_colors.get(i, (160, 160, 160))
+                top_surface = font.render(str(i), False, user_color)
+                nickname_surface = font.render(str(username), False, user_color)
+                rating_surface = font.render(str(rating), False, user_color)
+                self.image.blit(top_surface, (x_top_static, y))
+                self.image.blit(nickname_surface, (x_name_static, y))
+                self.image.blit(rating_surface, (x_rating_static, y))
+                y += 20
+                i += 1
+                if y >= 400:
+                    if v.AUTHED:
+                        if i < client_top + 1:
+                            if i != client_top + 2:
+                                y += 10
+                            pygame.draw.rect(
+                                self.image, (170, 170, 170), (10, y, 680, 20), 1
+                            )
+                            username = (
+                                v.username
+                                if len(v.username) <= 20
+                                else v.username[:17] + "..."
+                            )
+                            user_color = (160, 160, 160)
+                            top_surface = font.render(
+                                str(client_top + 1), False, user_color
+                            )
+                            nickname_surface = font.render(
+                                str(username), False, user_color
+                            )
+                            rating_surface = font.render(str(rating), False, user_color)
+                            self.image.blit(top_surface, (x_top_static, y))
+                            self.image.blit(nickname_surface, (x_name_static, y))
+                            self.image.blit(rating_surface, (x_rating_static, y))
+
+                    break
+            screen.blit(self.image, pos)
+        except:
+            pass
