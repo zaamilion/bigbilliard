@@ -15,9 +15,12 @@
 
 ## 🏗️ Архитектура проекта
 
-### Диаграмма архитектуры
+### Диаграммы архитектуры (C4)
+#### Context
 ![Context](/docs/1.drawio.png)
+#### Containers
 ![Containers](/docs/2.drawio.png)
+#### Components
 ![Components](/docs/Untitled%20Diagram-Components.drawio.png)
 
 ---
